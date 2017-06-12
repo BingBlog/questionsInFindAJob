@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=0.499,maximum-scale=1,minimum-scale=1,user-scalable=no,width=device-width">
+    <title>题目详解示例-CSS居中布局</title>  
+    <style type="text/css">
+      .section{
+        margin: 20px 0;
+        background: #e4e4e4;
+        padding: 10px;
+        border: solid 1px #e4e4e4;
+        border-radius: 4px;
+      }
+      h2, h3{
+        border-bottom: dashed 1px #666;
+      }
+      p{
+        background: #fff;
+      }
+      span{
+        background: #ff0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>CSS居中布局</h2>
+    <section class="section">
+      <h3>水平居中</h3>
+      <h4>父元素宽度未知或者已知,只要子元素为内联元素且宽度没有设定，给父元素设置text-align:center;</h4>
+      <div>
+        <p style="width:100%;height:50px;border:solid 1px red;box-sizing:border-box;text-align:center;">
+          <span>父元素宽度未知(设置为100%)，宽度未知的行内元素，水平居中居中</span>
+        </p>
+      </div>
+      <h4>父元素宽度未知，元素是块级元素，且宽度已定300px(宽度未定，就没有居中的意义了)</h4>
+      <h5>方法一</h5>
+      <div>
+        <div style="width:100%;height:50px;border:solid 1px red;box-sizing:border-box;">
+          <p style="width:300px;margin:0 auto;">父元素宽度未知(设置为100%)，已知宽度的块级子元素水平居中居中</p>
+        </div>
+      </div>
+      <h5>方法二，外边距负值和相对定位，先向左设定父元素宽度一半的外边距，再相对于现在的位置，做偏移自身的一半</h5>
+      <div>
+        <div style="width:100%;height:50px;border:solid 1px red;">
+          <p style="width:300px;margin:0 auto;position:relative;left:50%;margin-left:-150px;">父元素宽度未知(设置为100%)，已知宽度的块级子元素水平居中居中</p>
+        </div>
+      </div>
+      <div>
+        <div style="width:100%;height:50px;border:solid 1px red;">
+          <p style="width:300px;margin:0 auto;position:relative;left:-150px;margin-left:50%;">父元素宽度未知(设置为100%)，已知宽度的块级子元素水平居中居中</p>
+        </div>
+      </div>
+      <strong style="color:red;">margin设置为负值时是相对于父元素的<b style="font-size:24px;">宽度</b>,所以这里可以调换top:50%;margin-top:-50px;</strong>
+    </section>
+    <section class="section">
+      <h3>垂直居中</h3>
+      <h4>父元素高度确定，子元素为内联元素且高度没有设定,并且只有一行，将子元素设置为inline-block并用line-height</h4>
+      <div>
+        <p style="width:200px;height:50px;border:solid 1px red;box-sizing:border-box;;">
+          <span style="display:inline-block;line-height:48px;">垂直居中</span>
+        </p>
+      </div>
+      <h4>父元素高度确定，子元素为内联元素且高度没有设定,并且有多行，display:table-cell;vertical-align:middle;</h4>
+      <div>
+        <p style="width:200px;height:250px;border:solid 1px red;display:table-cell;vertical-align:middle;">
+          <span style="width:200px;">多行垂直居中多行垂直居中多行垂直居中多行垂直居中</span>
+        </p>
+      </div>
+      <h4>元素是块级元素，且高度未知或者已知display:table-cell;vertical-align:middle;</h4>
+      <div>
+        <div style="width:200px;height:50px;border:solid 1px red;box-sizing:border-box;display:table-cell;vertical-align:middle;">
+          <p>子元素是块元素，高度未知，垂直居中</p>
+        </div>
+      </div>
+      <h4>子元素是块元素，高度已知，垂直居中，margin负值和相对定位</h4>
+      <div>
+        <div style="width:100%;height:200px;border:solid 1px red;">
+          <p style="position:relative;height:100px;top:50%;margin-top:-50px;">子元素是块元素，高度已知，垂直居中</p>
+        </div>
+      </div>
+      <strong style="color:red;">margin设置为负值时是相对于父元素的<b style="font-size:24px;">宽度</b>,所以这里不能调换top:50%;margin-top:-50px;</strong>
+    </section>
+    <section class="section">
+      <h3>水平垂直居中的其他方法</h3>
+      <h4>子元素是块元素，高度已知，垂直居中，margin负值和transform</h4>
+      <div>
+        <div style="width:100%;height:200px;border:solid 1px red;">
+          <p style="position:relative;width:400px;height:100px;left:50%;top:50%;transform: translate(-50%, -50%);">子元素是块元素，高度已知，水平垂直居中</p>
+        </div>
+      </div>
+      <h4>子元素是块元素，高度已知，水平垂直居中，margin负值和相对定位</h4>
+      <div>
+        <div style="width:100%;height:200px;border:solid 1px red;">
+          <p style="position:relative;left:50%;top:50%;width:400px;height:100px;margin-left:-200px;margin-top:-50px;">子元素是块元素，高度已知，水平垂直居中</p>
+        </div>
+      </div>
+      <h4>子元素是块元素，高度已知，垂直居中，flex</h4>
+      <div>
+        <div style="width:100%;height:200px;border:solid 1px red;display:flex;flex-direction:column;justify-content:center;">
+          <p>子元素是块元素，高度已知，垂直居中</p>
+        </div>
+      </div>
+      <h4>子元素是块元素，高度已知，水平居中，flex</h4>
+      <div>
+        <div style="width:100%;height:200px;border:solid 1px red;display:flex;flex-direction:row;justify-content:center;">
+          <p>子元素是块元素，高度已知，水平居中</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

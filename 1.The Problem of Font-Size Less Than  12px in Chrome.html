@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>题目详解示例</title>  
+    <style type="text/css">
+      .section{
+        margin: 20px 0;
+        background: #e4e4e4;
+        padding: 10px;
+        border: solid 1px #e4e4e4;
+        border-radius: 4px;
+      }
+      h2{
+        border-bottom: dashed 1px #666;
+      }
+      p{
+        background: #fff;
+      }
+      span{
+        background: #ff0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>chrome下字体小于12px的问题</h2>
+    <section class="section">
+      <div>
+        <div>
+          <h3>示例(白色块为p元素，黄色块为span元素)</h3>
+          <div>
+            <p>
+              <span style="font-size:16px;">16像素</span>
+              <span style="font-size:14px;">14像素</span>
+              <span style="font-size:12px;">12像素</span>
+              <span style="font-size:10px;">10像素(未处理，还是12px)</span>
+              <span style="font-size:10px;">8像素(未处理，还是12px)</span>
+              <span style="font-size:10px;">10像素(未处理，还是12px)</span>
+              <strong style="font-size:16px;display:block;color:red;">该问题仅在chrome中出现</strong>
+            </p>
+            <p>
+              <span style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5);display:inline-block;">设置为20px,再缩放为0.5倍,字体显示为10px,由于transform:scale()缩放的是元素的宽高，所以需要display为block或者inline-block,否则不生效</span>
+            </p>
+            <p>
+              <span style="font-size:16px;">16像素</span>
+              <span style="font-size:14px;">14像素</span>
+              <span style="font-size:12px;">12像素</span>
+              <span style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5);display:inline-block;">由于缩放，会使元素相对于原本的位置向中间（水平和垂直）偏移</span>
+            </p>
+            <p>
+              <span style="font-size:16px;">16像素</span>
+              <span style="font-size:14px;">14像素</span>
+              <span style="font-size:12px;">12像素</span>
+              <span style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5);-webkit-transform-origin: left;-moz-transform-origin: left;transform-origin:left;display:inline-block;">设置transform-origin:left;</span>
+            </p>
+            <p>
+              <span style="font-size:16px;">16像素</span>
+              <span style="font-size:14px;">14像素</span>
+              <span style="font-size:12px;">12像素</span>
+              <span style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5);-webkit-transform-origin: left;-moz-transform-origin: left bottom;transform-origin:left bottom;display:inline-block;">设置transform-origin:left bottom;</span>
+              <strong style="font-size:16px;display:block;color:red;">本文设置的0.5是为了凸显出内容位置偏移的问题，transform-origin的兼容性，可见https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin?v=example</strong>
+            </p>
+            <p>
+              <span style="font-size:16px;">16像素</span>
+              <span style="font-size:14px;">14像素</span>
+              <span style="font-size:12px;">12像素</span>
+              <span style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5);display:inline-block;">
+                <small>
+                  10像素10像素10像素10像素10像素10像素10像素
+                </small>
+              </span>
+            </p>
+            <div>
+              <p style="font-size:16px;">16px</p>
+              <p style="font-size:14px;">14px</p>
+              <p style="font-size:12px;">12px</p>
+              <p style="font-size:10px;">10px(还是12px)</p>
+              <p style="font-size:10px;">10px(还是12px)</p>
+              <p style="font-size:20px;-webkit-transform:scale(0.5);transform:scale(0.5)">10px,设置transform:scale</p>
+              <strong style="font-size:16px;display:block;color:red;">
+                经过尝试，没有找到比较好的处理方式，可以使小于12px的字体在chrome中经过transform:scale后，维持原本的content位置，只能使用宽高和定位来处理。
+              </strong>
+            </div>
+          </div>
+        </div>
+        <p>
+          <code>
+          
+          </code>
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
