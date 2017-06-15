@@ -1,0 +1,31 @@
+<! DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>两栏布局</title>
+    <style>
+      .main{
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .main .side-bar{
+        width: 200px;
+        background: #666;
+        min-height: 200px;
+        position: absolute;
+      }
+      .main .content{
+        padding-left: 200px;
+        background: #e4e4e4;
+        min-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="side-bar"></div>
+      <div class="content"></div>
+    </div>
+  </body>
+</html>

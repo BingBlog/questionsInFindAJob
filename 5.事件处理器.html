@@ -1,0 +1,148 @@
+<! DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>两栏布局</title>
+    <style>
+      body {
+        border: solid 20px #e4e4e4;
+        height: 20000px;
+      }
+      .main{
+        width: 100%;
+        position: relative;
+      }
+      .main .side-bar{
+        width: 200px;
+        background: #666;
+        min-height: 200px;
+        position: absolute;
+      }
+      .main .content{
+        padding-left: 200px;
+        background: #e4e4e4;
+        min-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<div class="main">
+      <div class="side-bar"></div>
+      <div class="content"></div>
+    </div>-->
+    <div>点击我</div>
+    <div>点击我</div>
+    <div>点击我</div>
+  </body>
+  <script>
+    // 通用的事件处理器
+    if(document.addEventListener){
+      this.addEvent = function (elem, type, fn) {
+        elem.addEventListener(type, fn, false);
+        return fn;
+      };
+      this.removeEvent =function (elem, type, fn) {
+        elem.removeEventListener(type, fn, false);
+      }
+    }else if(document.attachEvent){
+      this.addEvent = function (elem, type, fn) {
+        // 修改事件对象
+        var bound = function (){
+          return fn.apply(elem, arguments);
+        }
+        elem.attachEvent("on" + type, bound);
+        return bound;
+      }
+      this.removeEvent =function (elem, type, fn) {
+        elem.detachEvent("on" + tpye, fn)
+      }
+    }
+
+    addEvent(window, 'load', function(){
+      var divs = document.getElementsByTagName('div');
+      var body = document.getElementsByTagName('body');
+      for(var i = 0; i < divs.length; i ++) {
+        (function (elem) {
+          var handler = addEvent(elem, "click", function (e) {
+            console.log(e);
+            debugger;
+            this.style.backgroundColor = this.style.backgroundColor === '' ? 'red' : '';
+            removeEvent(elem, "click", handler);
+          })
+        })(divs[i])      
+      }
+      addEvent(body[0], "click", function (e) {
+        console.log(e);
+        debugger;
+      })
+      body[0].addEventListener('click', function (e) {
+        console.log(e);
+        debugger;
+      }, true)
+      document.addEventListener('click', function (e) {
+        console.log(e);
+        debugger;
+      }, true)
+      window.addEventListener('click', function (e) {
+        console.log(e);
+        debugger;
+      }, true)
+    })
+
+
+    function fixEvent (event) {
+      function returnTrue () {
+        return true;
+      }
+      function returnFalse () {
+        return false;
+      }
+      if (!event || !event.stopPropagation) {
+        var old = event || window.event;
+        
+        // 复制原生的事件对象，以方便更改其值
+        event = {};
+        for (var prop in old) {
+          event[prop] = old[prop];
+        }
+        
+        // 修正event的target属性
+        if (!event.target) {
+          event.target = event.srcElement || document;
+        }
+
+        // 修正关联元素
+        event.relatedTarget = event.fromElement === event.target ?
+          event.toElement : event.fromElement;
+
+        // 修正阻止浏览器默认行为方法
+        evnet.preventDefault = function () {
+          event.returnValue = false;
+          event.isDefaultPrevented = returnTrue;
+        }
+
+        event.isDefaultPrevented = returnFalse;
+
+        // 修正阻止冒泡方法
+        event.stopPropagation =function () {
+          event.cancelBubble = true;
+          event.isPropagationStoped = returnTrue;
+        }
+        event.isPropagationStoped = returnFalse;
+
+        // 阻止冒泡并阻止其它事件处理程序的执行
+        event.stopImmediatePropagation = function () {
+          this.stopImmediatePropagationStoped = retturnTrue;
+          this.stopPropagation();
+        }
+        event.isImmediatePropagationStopped = returnFalse;
+
+        if (event.clientX != null) {
+
+        }
+      }
+    }
+
+
+  </script>
+</html>
